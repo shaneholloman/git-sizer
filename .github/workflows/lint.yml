@@ -1,3 +1,4 @@
+---
 name: Lint
 on:
   push:
@@ -10,6 +11,9 @@ on:
       - "**.go"
       - go.mod
       - go.sum
+
+permissions:
+  contents: read
 
 jobs:
   lint:
