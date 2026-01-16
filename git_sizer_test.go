@@ -869,7 +869,7 @@ func TestSHA256(t *testing.T) {
 	cmd.Env = testutils.CleanGitEnv()
 	output, err := cmd.CombinedOutput()
 
-	if err != nil && strings.HasPrefix(string(output), "error: unknown option `object-format'") {
+	if err != nil && strings.Contains(string(output), "object-format") {
 		t.Skip("skipping due to lack of SHA256 support")
 	}
 	require.NoError(t, err)
