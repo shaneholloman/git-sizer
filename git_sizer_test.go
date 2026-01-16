@@ -867,7 +867,11 @@ func TestSHA256(t *testing.T) {
 	// exist yet:
 	cmd := exec.Command("git", "init", "--object-format", "sha256", testRepo.Path)
 	cmd.Env = testutils.CleanGitEnv()
-	err = cmd.Run()
+	output, err := cmd.CombinedOutput()
+
+	if err != nil && strings.HasPrefix(string(output), "error: unknown option `object-format'") {
+		t.Skip("skipping due to lack of SHA256 support")
+	}
 	require.NoError(t, err)
 
 	timestamp := time.Unix(1112911993, 0)
